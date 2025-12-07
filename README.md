@@ -55,7 +55,7 @@ Groq | Llama 3
 Async I/O
 dotenv
 
-📡 API Endpoints
+📡 API Endpoints (http://127.0.0.1:8000/docs)
 POST /release_ia/openai
 
 🔧 Installation & Setup
@@ -71,7 +71,7 @@ OPENAI_API_KEY=your_key
 GROQ_API_KEY=your_key
 
 4. Ejecutar servidor
-uv run uvicorn app:app --reload --port 8000
+uv run uvicorn main:app --reload --port 8000
 
 🧠 How It Works (LLM Orchestration)
 
