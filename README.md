@@ -37,6 +37,12 @@ Ejemplo:
   "improve performance"
 ]
 
+[
+  "Se corrigió un error en el login",
+  "Se actualizaron los colores de la interfaz",
+  "Mejoró el performance de la aplicación"
+]
+
 El sistema produce:
 
 Se solucionó un problema que impedía iniciar sesión.

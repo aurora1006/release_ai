@@ -8,6 +8,7 @@ dependencies = [
     "fastapi>=0.123.8",
     "langchain-deepseek>=1.0.1",
     "langchain-groq>=1.1.0",
+    "langchain-ollama>=1.0.0",
     "openai>=2.9.0",
     "python-dotenv>=1.2.1",
     "uvicorn>=0.38.0",
