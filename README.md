@@ -1,6 +1,6 @@
 🧠 AI-Powered Release Notes Generator
 
-Automated changelog generation using LLMs (OpenAI, Llama 3, Mistral y Deepseek)
+Automated changelog generation using LLMs (OpenAI, Llama 3, Mistral, Deepseek y Gemma)
 
 Este proyecto es una herramienta que automatiza la generación de notas de liberación a partir de mensajes de commits utilizando modelos de lenguaje avanzados como OpenAI, Llama3 (Groq), Mistral y Deepseek.
 Busca optimizar flujos de desarrollo, elevar la calidad de documentación y reducir trabajo manual en procesos de release.
