@@ -14,12 +14,27 @@ llm = ChatOllama(
     model="deepseek-r1",
     base_url="http://localhost:11434",
     api_key="ollama",
+    options={'temperature': 0.7}
+)
+
+llmMistral = ChatOllama(
+    model="mistral",
+    base_url="http://localhost:11434",
+    api_key="ollama",
+    options={'temperature': 0.7}
+)
+
+llmGemma2 = ChatOllama(
+    model="gemma2:2b",
+    base_url="http://localhost:11434",
+    api_key="ollama",
+    options={'temperature': 0.7}
 )
 
 app = FastAPI()
 
 @app.post("/release_ia/open_ai")
-async def generate_changelog(commits: list[str]):
+async def generate_changelog_openai(commits: list[str]):
     if not commits:
         return {"changelog": "No se detectaron cambios nuevos desde la última versión."}
 
@@ -34,7 +49,8 @@ async def generate_changelog(commits: list[str]):
 
     Genera un texto breve y natural en bullets (máximo 5 líneas) describiendo
     las mejoras y correcciones en lenguaje humano.
-    No uses lenguaje técnico ni menciones “commit”.
+    No uses lenguaje técnico ni menciones “commit”
+    Además en lenguajes español latinoamericano.
     """
 
     response = await client.chat.completions.create(
@@ -72,7 +88,8 @@ async def generate_changelog_llama3(commits: list[str]):
 
     Genera un texto breve y natural en bullets (máximo 5 líneas) describiendo
     las mejoras y correcciones en lenguaje humano.
-    No uses lenguaje técnico ni menciones “commit”.
+    No uses lenguaje técnico ni menciones “commit”
+    Además en lenguajes español latinoamericano..
     """
 
     response = await llm.ainvoke(prompt)
@@ -97,7 +114,8 @@ async def generate_changelog_deepseek(commits: list[str]):
 
     Genera un texto breve y natural en bullets (máximo 5 líneas) describiendo
     las mejoras y correcciones en lenguaje humano.
-    No uses lenguaje técnico ni menciones “commit”.
+    No uses lenguaje técnico ni menciones “commit”
+    Además en lenguajes español latinoamericano..
     """
 
     messages = [
@@ -109,35 +127,51 @@ async def generate_changelog_deepseek(commits: list[str]):
     return {"changelog": result.content}
 
 @app.post("/release_ia/mistral")
-async def generate_changelog_llama3(commits: list[str]):
-
-    llm = ChatGroq(
-        model_name="mixtral-8x7b-32768",
-        temperature=0.7
-    )
-
+async def generate_changelog_mistral(commits: list[str]):
     if not commits:
         return {"changelog": "No se detectaron cambios nuevos desde la última versión."}
 
     commits_text = "\n".join(f"- {c}" for c in commits)
 
     prompt = f"""
-    Eres una asistente de desarrollo que crea descripciones amigables para usuarios finales
-    basadas en mensajes de commits de una app Flutter.
-
     A partir de estos commits:
     {commits_text}
 
     Genera un texto breve y natural en bullets (máximo 5 líneas) describiendo
     las mejoras y correcciones en lenguaje humano.
-    No uses lenguaje técnico ni menciones “commit”.
+    No uses lenguaje técnico ni menciones “commit”
+    Además en lenguajes español latinoamericano.
     """
 
-    response = await llm.ainvoke(prompt)
+    messages = [
+        ("system", "Eres una asistente de desarrollo que crea descripciones amigables para usuarios finales basadas en mensajes de commits de una app Flutter."),
+        ("user", f"{prompt}")
+    ]
 
-    print("Mistral")
-    print(response.content.strip())
+    result = llmMistral.invoke(messages)
+    return {"changelog": result.content}
 
-    return {
-        "changelog": response.content.strip()
-    }
+@app.post("/release_ia/gemma2")
+async def generate_changelog_gemma2(commits: list[str]):
+    if not commits:
+        return {"changelog": "No se detectaron cambios nuevos desde la última versión."}
+
+    commits_text = "\n".join(f"- {c}" for c in commits)
+
+    prompt = f"""
+    A partir de estos commits:
+    {commits_text}
+
+    Genera un texto breve y natural en bullets (máximo 5 líneas) describiendo
+    las mejoras y correcciones en lenguaje humano.
+    No uses lenguaje técnico ni menciones “commit”
+    Además en lenguajes español latinoamericano.
+    """
+
+    messages = [
+        ("system", "Eres una asistente de desarrollo que crea descripciones amigables para usuarios finales basadas en mensajes de commits de una app Flutter."),
+        ("user", f"{prompt}")
+    ]
+
+    result = llmGemma2.invoke(messages)
+    return {"changelog": result.content}
