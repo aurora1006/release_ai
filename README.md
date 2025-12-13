@@ -37,19 +37,13 @@ Ejemplo:
   "improve performance"
 ]
 
-[
-  "Se corrigió un error en el login",
-  "Se actualizaron los colores de la interfaz",
-  "Mejoró el performance de la aplicación"
-]
-
 El sistema produce:
 
-Se solucionó un problema que impedía iniciar sesión.
-Se actualizaron los colores de la interfaz para una experiencia más agradable.
-La aplicación ahora funciona de manera más eficiente.
+🔒 ¡Se solucionó un error en el inicio de sesión! Ahora podrás acceder a tu cuenta sin problemas.  
+🎨 La apariencia de la app ha sido actualizada con nuevos colores que hacen la experiencia más agradable.  
+🚀 ¡La app ahora funciona más rápido! Hemos mejorado el rendimiento para que disfrutes de una navegación más fluida.
 
-Esto permite que los equipos publiquen changelogs profesionales automáticamente, sin invertir tiempo redactando texto manual.
+
 
 🚀 Tech Stack
 
@@ -66,7 +60,7 @@ POST /release_ia/openai
 
 🔧 Installation & Setup
 1. Clonar repositorio
-git clone https://github.com/tu_usuario/tu_repo.git
+git clone repositorio
 cd tu_repo
 
 2. Instalar dependencias
